@@ -20,7 +20,6 @@ export const authSlice = createSlice({
       state.loggedIn = true;
       state.user = action.payload;
       setItem("token", action?.payload?.token);
-      // localStorage.setItem("token", action?.payload?.token);
     },
     signUserFailure: (state, action) => {
       state.isLoading = false;

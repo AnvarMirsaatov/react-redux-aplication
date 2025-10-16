@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../ui";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,14 +7,17 @@ import {
   signUserFailure,
 } from "../../slice/Auth";
 import AuthService from "../../service/auth";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const { isLoading, error, loggedIn } = useSelector((state) => state.auth);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
+
 
   const handleChange = async (e) => {
     e.preventDefault();
@@ -25,11 +28,22 @@ const Register = () => {
     try {
       const response = await AuthService.userRegister(user);
       dispatch(signUserSuccess(response.user));
+      navigate("/")
     } catch (err) {
       console.log(err?.response?.data?.errors);
-      dispatch(signUserFailure(err.response.data.errors));
+
+      // dispatch(signUserFailure(error.response.data.errors));
+
+      const errData = error.response.data.errors;
+      dispatch(signUserFailure(errData));
     }
   };
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/")
+    }
+  }, [loggedIn])
 
   return (
     <div className="text-center">
