@@ -4,7 +4,7 @@ import AuthService from "./service/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { signUserSuccess } from "./slice/Auth";
-import { getItem } from "./persistance-storage/persistance-storage";
+import { getItem } from "./helpers/persistance-storage";
 const App = () => {
   const dispatch = useDispatch();
 
@@ -12,6 +12,7 @@ const App = () => {
     try {
       const response = await AuthService.getUser();
       dispatch(signUserSuccess(response.user));
+      console.log(response);
     } catch (error) {
       console.log(error);
     }

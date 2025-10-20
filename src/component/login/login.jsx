@@ -43,7 +43,7 @@ const Login = () => {
         <form className="mx-auto" onSubmit={handleSubmit}>
           <h1 className="h3 mb-3 fw-normal">Login</h1>
 
-          {error && <div class="alert alert-danger p-1 mb-1" role="alert">
+          {error && <div className="alert alert-danger p-1 mb-1" role="alert">
             Email Or Password        </div>}
           <Input
             label="Email address"

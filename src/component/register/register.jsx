@@ -31,9 +31,6 @@ const Register = () => {
       navigate("/")
     } catch (err) {
       console.log(err?.response?.data?.errors);
-
-      // dispatch(signUserFailure(error.response.data.errors));
-
       const errData = error.response.data.errors;
       dispatch(signUserFailure(errData));
     }
