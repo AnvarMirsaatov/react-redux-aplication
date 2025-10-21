@@ -16,7 +16,6 @@ const Navbar = () => {
     navigate('/login ')
   }
 
-  console.log(loggedIn);
 
   return (
     <div className="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom container mt-3">
