@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const ArticleCard = ({ article }) => {
     const [favorited, setFavorited] = useState(article.favorited);
@@ -43,7 +44,6 @@ const ArticleCard = ({ article }) => {
                 </div>
             </div>
 
-            {/* BODY */}
             <div className="card-body">
                 <h4 className="fw-bold mb-2">{article.title}</h4>
                 <p className="text-muted">{article.description}</p>
@@ -80,17 +80,16 @@ const ArticleCard = ({ article }) => {
                             {favorited ? article.favoritesCount + 1 : article.favoritesCount}
                         </button>
 
-                        <a
-                            // href={`/article/${article.slug}`}
+                        <Link
+                            to={`/articleDetail/${article.slug}`}
                             className="btn btn-sm btn-outline-secondary"
                         >
                             Read more
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
 
-            {/* FOOTER */}
             <div className="card-footer bg-light text-muted small">
                 <span>ID: {article.id}</span>
             </div>
