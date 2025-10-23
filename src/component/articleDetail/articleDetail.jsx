@@ -15,7 +15,6 @@ const ArticleDetail = () => {
             dispatch(getArticleDetailStart());
             const response = await ArticleService.getArticlesDetail(slug);
             dispatch(getArticleDetailSuccess(response.article))
-            console.log(response);
 
         } catch (err) {
             console.log(err);
@@ -30,7 +29,7 @@ const ArticleDetail = () => {
         }
     }, [slug]);
 
-    if ( isLoading) {
+    if (isLoading) {
         return (
             <div className="d-flex justify-content-center align-items-center vh-50">
                 <LoaderCard animation="border" variant="primary" />
@@ -54,7 +53,6 @@ const ArticleDetail = () => {
         );
     }
 
-    console.log('articleDetail=>>', articleDetail);
 
 
     return (

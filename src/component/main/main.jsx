@@ -1,15 +1,21 @@
 import { useSelector } from "react-redux";
 import ArticleCard from "../articlesCard";
 import LoaderCard from "../../ui/loaderCard";
+import { Link } from "react-router-dom";
 
 const Main = () => {
   const { articles, isLoading, error } = useSelector((state) => state.article);
 
   return (
-    <div className=" py-5 bg-light">
+    <div >
+      <ul className="nav justify-content-end">
+        <li className="nav-item">
+          <Link to={'/createArticle'} className="nav-link active" href="#">Create article</Link>
+        </li>
+      </ul>
       {error && <p className="text-danger text-center">Error: {error}</p>}
 
-      <div className="row justify-content-center g-4">
+      <div className="row justify-content-center g-4 my-2 " >
         {isLoading ? (
           Array.from({ length: 9 }).map((_, index) => (
             <div
