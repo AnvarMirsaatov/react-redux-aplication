@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ArticleService from "../../service/articles";
 import { useEffect } from "react";
 import LoaderCard from "../../ui/loaderCard";
@@ -9,6 +9,7 @@ const ArticleDetail = () => {
     const { slug } = useParams();
     const dispatch = useDispatch()
     const { isLoading, articleDetail, error } = useSelector((state) => state.article)
+    const navigate = useNavigate()
 
     const getArticlesDetail = async () => {
         try {
@@ -22,6 +23,20 @@ const ArticleDetail = () => {
 
         }
     };
+
+    const deleteArticles = async () => {
+        try {
+            const response = await ArticleService.deleteArticles(slug)
+            console.log(response);
+
+        }
+        catch (error) {
+            console.log(error);
+        }
+        finally {
+            navigate('/')
+        }
+    }
 
     useEffect(() => {
         if (slug) {
@@ -52,14 +67,11 @@ const ArticleDetail = () => {
             </div>
         );
     }
-
-
-
     return (
         <div className="container py-5">
             <div className="card shadow-lg border-0 rounded-4 overflow-hidden">
                 <div className="row g-0">
-                    <div className="col-md-4 bg-light d-flex flex-column align-items-center justify-content-center p-4 text-center">
+                    <div className="col-md-4 bg-light d-flex flex-column align-items-center justify-content-start p-4 text-center">
                         <img
                             src={articleDetail.author.image}
                             alt={articleDetail.author.username}
@@ -68,6 +80,7 @@ const ArticleDetail = () => {
                             height="120"
                         />
                         <h5 className="fw-semibold mb-1">@{articleDetail.author.username}</h5>
+
                         <p className="text-muted small">{articleDetail.author.bio}</p>
                         <div className="d-flex align-items-center gap-2 mt-3">
                             <span className="badge bg-secondary">
@@ -80,7 +93,27 @@ const ArticleDetail = () => {
                     </div>
 
                     <div className="col-md-8 p-4">
-                        <h2 className="fw-bold mb-3">{articleDetail.title}</h2>
+
+                        <div className="d-flex justify-content-between align-items-start    ">
+                            <h2 className="fw-bold mb-3">{articleDetail.title}</h2>
+
+                            <div className="d-flex gap-2">
+                                <button className={"btn btn-sm btn btn-outline-success"}
+                                >
+                                    <i
+                                        className={`bi  bi bi-trash3 me-1`}
+                                    ></i>
+                                    Edit
+                                </button>
+                                <button onClick={deleteArticles} className={"btn btn-sm btn-danger text-white btn-outline-danger"}
+                                >
+                                    <i
+                                        className={`bi  bi bi-trash3-fill me-1`}
+                                    ></i>
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
                         <p className="text-muted mb-3">{articleDetail.description}</p>
                         <hr />
                         <p className="lh-lg">{articleDetail.body}</p>

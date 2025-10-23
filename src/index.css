@@ -7,3 +7,9 @@ a {
   text-decoration: none;
   color: #000;
 }
+.trimText {
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* nechta qatorda kesilishini yoz */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

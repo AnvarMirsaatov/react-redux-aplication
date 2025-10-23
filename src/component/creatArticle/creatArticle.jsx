@@ -4,11 +4,13 @@ import ArticleForm from '../articleForm/articleForm';
 import ArticleService from '../../service/articles';
 import axios from 'axios';
 import { getItem } from '../../helpers/persistance-storage';
+import { useNavigate } from 'react-router-dom';
 
 
 const CreatArticle = () => {
     const { user, loggedIn } = useSelector(state => state.auth)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -20,11 +22,12 @@ const CreatArticle = () => {
         e.preventDefault()
         try {
             const response = await axios.post("http://localhost:3000/api/articles", { article });
-
             console.log(response);
-
         } catch (error) {
             console.log('error', error);
+        }
+        finally {
+            navigate(`/`)
         }
     }
 
