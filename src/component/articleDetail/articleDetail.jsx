@@ -9,20 +9,10 @@ const ArticleDetail = () => {
     const { slug } = useParams();
     const dispatch = useDispatch()
     const { isLoading, articleDetail, error } = useSelector((state) => state.article)
+    const { user } = useSelector((state) => state.auth)
     const navigate = useNavigate()
 
-    const getArticlesDetail = async () => {
-        try {
-            dispatch(getArticleDetailStart());
-            const response = await ArticleService.getArticlesDetail(slug);
-            dispatch(getArticleDetailSuccess(response.article))
 
-        } catch (err) {
-            console.log(err);
-            dispatch(getArticleDetailFailure("Failed to load article details"));
-
-        }
-    };
 
     const deleteArticles = async () => {
         try {
@@ -39,9 +29,19 @@ const ArticleDetail = () => {
     }
 
     useEffect(() => {
-        if (slug) {
-            getArticlesDetail();
-        }
+        const getArticlesDetail = async () => {
+            dispatch(getArticleDetailStart());
+            try {
+                const response = await ArticleService.getArticlesDetail(slug);
+                dispatch(getArticleDetailSuccess(response.article))
+
+            } catch (err) {
+                console.log(err);
+                dispatch(getArticleDetailFailure("Failed to load article details"));
+
+            }
+        };
+        getArticlesDetail();
     }, [slug]);
 
     if (isLoading) {
@@ -97,22 +97,22 @@ const ArticleDetail = () => {
                         <div className="d-flex justify-content-between align-items-start    ">
                             <h2 className="fw-bold mb-3">{articleDetail.title}</h2>
 
-                            <div className="d-flex gap-2">
-                                <button className={"btn btn-sm btn btn-outline-success"}
+                            {user.username === articleDetail.author.username && <div className="d-flex gap-2">
+                                <button onClick={() => navigate(`/editArticle/${slug}`)} className={"btn btn-sm btn btn-outline-success "}
                                 >
                                     <i
-                                        className={`bi  bi bi-trash3 me-1`}
+                                        className={`bi bi-pencil-square me-1`}
                                     ></i>
                                     Edit
                                 </button>
-                                <button onClick={deleteArticles} className={"btn btn-sm btn-danger text-white btn-outline-danger"}
+                                <button onClick={deleteArticles} className={"tn btn-sm btn btn-outline-danger "}
                                 >
                                     <i
                                         className={`bi  bi bi-trash3-fill me-1`}
                                     ></i>
                                     Delete
                                 </button>
-                            </div>
+                            </div>}
                         </div>
                         <p className="text-muted mb-3">{articleDetail.description}</p>
                         <hr />

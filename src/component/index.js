@@ -5,4 +5,5 @@ export { default as Navbar } from "./navbar/navbar.jsx";
 export { default as ArticleDetail } from "./articleDetail/articleDetail.jsx";
 export { default as CreatArticle } from "./creatArticle/creatArticle.jsx";
 export { default as ArticleForm } from "./articleForm/articleForm.jsx";
+export { default as EditArticle } from "./editArticle/editArticle.jsx";
 export { default as ValidationError } from "./validation-error/validation-error.jsx";

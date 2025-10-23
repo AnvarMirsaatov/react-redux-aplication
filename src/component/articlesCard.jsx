@@ -10,10 +10,6 @@ const ArticleCard = ({ article }) => {
     const handleFavorite = () => setFavorited(!favorited);
     const handleFollow = () => setFollowing(!following);
 
-    console.log(user);
-
-
-
     return (
         <div className="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
             <div className="card-header bg-white border-0 pb-0">
