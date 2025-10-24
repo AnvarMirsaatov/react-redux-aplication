@@ -3,9 +3,11 @@ import ArticleService from "../../service/articles";
 import { useEffect, useState } from "react";
 import LoaderCard from "../../ui/loaderCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getArticleDetailFailure, getArticleDetailStart, getArticleDetailSuccess } from "../../slice/article";
-import { getItem } from "../../helpers/persistance-storage";
-import axios from "axios";
+import {
+    getArticleDetailFailure,
+    getArticleDetailStart,
+    getArticleDetailSuccess,
+} from "../../slice/article";
 
 const EditArticle = () => {
     const { slug } = useParams();
@@ -74,12 +76,12 @@ const EditArticle = () => {
                     <div className="col-md-4 bg-light d-flex flex-column align-items-center justify-content-start p-4 text-center">
                         <img
                             src={articleDetail?.author?.image}
-                            alt={articleDetail?.author?.username}
+                            alt={articleDetail?.author?.username || 'unknown'}
                             className="rounded-circle shadow mb-3"
                             width="120"
                             height="120"
                         />
-                        <h5 className="fw-semibold mb-1">@{articleDetail?.author?.username}</h5>
+                        <h5 className="fw-semibold mb-1">@{articleDetail?.author?.username || 'unknown'}</h5>
 
                         <p className="text-muted small">{articleDetail?.author?.bio}</p>
                         <div className="d-flex align-items-center gap-2 mt-3">

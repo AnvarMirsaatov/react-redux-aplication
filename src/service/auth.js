@@ -9,10 +9,14 @@ const AuthService = {
     const { data } = await axios.post("/users/login", { user });
     return data;
   },
-  async getUser() {},
 
   async getUser() {
     const { data } = await axios.get("/user");
+    return data;
+  },
+  async editUserProfile(updatedUser) {
+    const { data } = await axios.put("/user", { user: updatedUser });
+    console.log("editUserProfile", data);
     return data;
   },
 };

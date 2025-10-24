@@ -76,7 +76,7 @@ const CreatArticle = () => {
 
                         {loggedIn &&
                             <>
-                                <h2 className="text-capitalize">{user.username}</h2>
+                                <h2 className="text-capitalize">{user.username || 'unknown'}</h2>
                                 <p>{user.email}</p>
                             </>
                         }

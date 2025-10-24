@@ -23,10 +23,9 @@ const ArticleService = {
     async EditArticle(slug, article) {
         const { data } = await axios.put(`/articles/${slug}`, { article });
         return data
-    }
+    },
 
 }
-
 
 
 export default ArticleService 
