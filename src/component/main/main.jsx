@@ -26,7 +26,7 @@ const Main = () => {
             </div>
           ))
         ) : articles && articles.length > 0 ? (
-          articles.map((article) => (
+          articles?.map((article) => (
             <div
               key={article.id}
               className="col-md-6 col-xl-4 d-flex justify-content-center"

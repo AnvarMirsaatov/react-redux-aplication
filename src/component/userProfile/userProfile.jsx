@@ -1,24 +1,18 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import LoaderCard from "../../ui/loaderCard";
 import ArticleCard from "../articlesCard";
-import { getArticles, getArticleDetail, getArticleStart, getArticleSuccess } from "../../slice/article"
+
 
 const UserProfile = () => {
-    const dispatch = useDispatch();
-    const { username } = useParams();
     const { user } = useSelector((state) => state.auth);
     const { articleDetail, articles, isLoading, error } = useSelector((state) => state.article);
-
+    const dispatch = useDispatch()
     const [filteredArticles, setFilteredArticles] = useState([]);
+    const { username } = useParams()
 
-    useEffect(() => {
-        dispatch(getArticleStart());
-        if (username) {
-            dispatch(getArticleSuccess(username));
-        }
-    }, [dispatch, username]);
+
 
     useEffect(() => {
         if (Array.isArray(articles) && articleDetail?.author?.username) {
@@ -27,13 +21,47 @@ const UserProfile = () => {
             );
             setFilteredArticles(filtered);
         } else {
-            setFilteredArticles([]); // agar articles array bo‘lmasa, bo‘sh holatda qoldiramiz
+            setFilteredArticles([]);
         }
-    }, [articles, articleDetail]);
+    }, [articles, articleDetail, dispatch]);
+
+
+
+
+
+    useEffect(() => {
+        if (Array.isArray(articles)) {
+            const filtered = articles.filter(
+                (e) => e?.author?.username === username
+            );
+            setFilteredArticles(filtered);
+        }
+    }, [articles, username]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     if (isLoading || !articleDetail) {
         return <p className="text-center mt-5">Loading user profile...</p>;
     }
+    console.log('articleDetail', articleDetail);
+
 
     return (
         <section className="h-100 gradient-custom-2">
@@ -41,7 +69,6 @@ const UserProfile = () => {
                 <div className="row d-flex justify-content-center">
                     <div className="col col-lg-9 col-xl-8">
                         <div className="card">
-                            {/* Header */}
                             <div
                                 className="p-3 d-flex justify-content-between align-items-start text-white"
                                 style={{ backgroundColor: "#000" }}
@@ -96,8 +123,6 @@ const UserProfile = () => {
                                     </Link>
                                 )}
                             </div>
-
-                            {/* About section */}
                             <div className="card-body p-4 text-black">
                                 <div className="mb-5 text-body">
                                     <p className="lead fw-normal mb-1">About</p>
@@ -105,10 +130,7 @@ const UserProfile = () => {
                                         <p>{articleDetail?.author?.bio || user?.bio}</p>
                                     </div>
                                 </div>
-
-                                {/* Articles section */}
                                 <p className="lead fw-normal mb-0">Articles</p>
-
                                 <div className="mt-5 row">
                                     {isLoading ? (
                                         Array.from({ length: 9 }).map((_, index) => (
@@ -119,8 +141,8 @@ const UserProfile = () => {
                                                 <LoaderCard />
                                             </div>
                                         ))
-                                    ) : filteredArticles && filteredArticles.length > 0 ? (
-                                        filteredArticles.map((article) => (
+                                    ) : filteredArticles && filteredArticles?.length > 0 ? (
+                                        filteredArticles?.map((article) => (
                                             <div
                                                 key={article.id}
                                                 className="col-md-6 col-xl-6 d-flex justify-content-center"

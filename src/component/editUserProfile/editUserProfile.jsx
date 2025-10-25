@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AuthService from "../../service/auth";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const EditUserProfile = () => {
     const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     const [username, setUsername] = useState("");
     const [bio, setBio] = useState("");
     const [image, setImage] = useState("");
@@ -17,7 +17,7 @@ const EditUserProfile = () => {
             setBio(user.bio || "");
             setImage(user.image || "");
         }
-    }, [user]);
+    }, [user, dispatch]);
 
     async function handleSaveProfile() {
         try {

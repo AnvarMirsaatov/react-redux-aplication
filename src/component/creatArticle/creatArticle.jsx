@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import ArticleForm from '../articleForm/articleForm';
-import ArticleService from '../../service/articles';
 import axios from 'axios';
 import { getItem } from '../../helpers/persistance-storage';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 const CreatArticle = () => {
     const { user, loggedIn } = useSelector(state => state.auth)
-    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const [title, setTitle] = useState('')
